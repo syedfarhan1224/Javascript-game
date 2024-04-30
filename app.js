@@ -1,0 +1,114 @@
+//decimal ki length ko control krne ke lye
+var divide = 10 / 3;
+console.log(divide.toFixed(2));
+
+var heading = document.getElementById("random");
+function generateOTPNumber() {
+  var random = Math.round(Math.random() * 10000);
+  heading.innerText = random;
+}
+
+var user_number = document.getElementById("user_number");
+var random_number = document.getElementById("random_number");
+var result = document.getElementById("result");
+var info_box_result = document.getElementById("info_box_result");
+var win_html = document.getElementById("win");
+var loss_html = document.getElementById("loss");
+var total = document.getElementById("total");
+var msg = document.getElementById("msg");
+
+var count = 10;
+var win = 0;
+var loss = 0;
+
+function tryMyLuck(userNumber) {
+  // alert(userNumber);
+  var randomNumber = Math.random() * 6;
+  var ceil = Math.ceil(randomNumber);
+  console.log(ceil);
+  user_number.innerText = userNumber;
+  random_number.innerText = ceil;
+
+  // total count mein se aik minus krdo
+  total.innerText = --count;
+
+  if (ceil === userNumber) {
+    console.log("user wins");
+    result.innerText = "You won";
+    info_box_result.style.backgroundColor = "Green";
+    result.style.color = "White";
+    // total count mein se aik minus krdo
+    win_html.innerText = ++win;
+  } else {
+    result.innerText = "You Loss";
+    info_box_result.style.backgroundColor = "red";
+    result.style.color = "White";
+    loss_html.innerText = ++loss;
+  }
+
+  checkResult();
+}
+
+function checkResult() {
+  if (count == 0) {
+    if (win >= 3) {
+      msg.innerText = "Congrats! You won";
+    } else {
+      msg.innerText = "Sorry! You loss try again";
+    }
+    count = 10;
+    win = 0;
+    loss = 0;
+    total.innerText = count;
+    win_html.innerText = loss;
+    loss_html.innerText = win;
+  }
+}
+document
+  .getElementById("tryAgainButton")
+  .addEventListener("click", function () {
+    // Reset the game state
+    count = 10;
+    win = 0;
+    loss = 0;
+    total.innerText = count;
+    win_html.innerText = win;
+    loss_html.innerText = loss;
+    msg.innerText = "";
+    user_number.innerText = "";
+    random_number.innerText = "";
+    result.innerText = "";
+    info_box_result.style.backgroundColor = "";
+    result.style.color = "";
+
+    // Hide the button and show the game elements
+    document.getElementById("tryAgainButton").style.display = "none";
+    // Show the necessary game elements
+    setGameElementsDisplay("block");
+  });
+
+function setGameElementsDisplay(displayStyle) {
+  // Set display style for game-related elements
+  user_number.style.display = displayStyle;
+  random_number.style.display = displayStyle;
+  result.style.display = displayStyle;
+  info_box_result.style.display = displayStyle;
+  total.style.display = displayStyle;
+  win_html.style.display = displayStyle;
+  loss_html.style.display = displayStyle;
+}
+function checkResult() {
+  if (count == 0) {
+    if (win >= 3) {
+      msg.innerText = "Congrats! You won";
+    } else {
+      msg.innerText = "Sorry! You lost. Try again";
+    }
+
+    // Hide all game-related elements
+    setGameElementsDisplay("none");
+
+    // Show the "Try Again" button
+    document.getElementById("tryAgainButton").style.display = "block";
+  }
+}
